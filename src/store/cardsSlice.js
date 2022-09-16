@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import store from "./configStore";
 
 export const cardsSlice = createSlice({
   name: "cards",
@@ -48,8 +49,12 @@ export const cardsSlice = createSlice({
       );
     },
     changeActiveCard: (state, { payload }) => {
+      console.log(state.availableCardsList.find(card => card.cardNumber === payload))
+      const cardTemp = state.activeCard;
       state.activeCard = state.availableCardsList.find(card => card.cardNumber === payload);
+      state.availableCardsList.push(cardTemp);
       state.availableCardsList = state.availableCardsList.filter(card => card.cardNumber !== payload)
+      // state.availableCardsList = state.availableCardsList.filter(card => card.cardNumber !== payload)
     },
   },
 });

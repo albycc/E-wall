@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { initCard } from "../../../store/cardsSlice";
+import { Link } from "react-router-dom";
+import { initCard, changeActiveCard } from "../../../store/cardsSlice";
 
 import Card from "../../Card/Card";
 
@@ -14,8 +15,10 @@ export default function CardsPage() {
     dispatch(initCard());
   }, [dispatch]);
 
-  console.log("cardspage activeCard: ", activeCard);
-  console.log("cardspage list: ", availableCardsList);
+  const onCardClick = (event) => {
+    const cardNumber = event.target.dataset.cardNumber
+    dispatch(changeActiveCard(cardNumber))
+  }
 
   return (
     <div>
@@ -29,11 +32,16 @@ export default function CardsPage() {
       <div>
         <h2>card list</h2>
         {availableCardsList.map((card) => (
-          <Card {...card} />
+          <div key={card.cardNumber} onClick={onCardClick} data-card-number={card.cardNumber}>
+            <Card {...card}/>
+
+          </div>
         ))}
       </div>
       <div>
-        <button>+</button>
+        <Link to="/addcard">
+          <button>+</button>
+        </Link>
       </div>
     </div>
   );
