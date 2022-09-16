@@ -10,14 +10,14 @@ import AddCardPage from "./components/pages/AddCard/addcardpage";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <React.StrictMode>
     <BrowserRouter>
       <Provider store={store}>
-        <Routes path="/" element={<App />}>
-          <Route path="cards" element={<CardsPage />}/>
-          <Route path="addcard" element={<AddCardPage />}/>
+        <Routes>
+          <Route path="/" element={<App />}>
+            <Route path="cards" element={<CardsPage />} />
+            <Route path="addcard" element={<AddCardPage />} />
+          </Route>
         </Routes>
       </Provider>
     </BrowserRouter>
-  </React.StrictMode>
 );
