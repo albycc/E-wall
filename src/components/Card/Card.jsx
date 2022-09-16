@@ -8,11 +8,12 @@ export default function Card({
   expireYear,
   ccv,
 }) {
+    const name = cardHolder?.name
   return (
     <div className={styles["card-container"]}>
       <p>{vendor}</p>
       <p>{cardNumber}</p>
-      <p>{cardHolder}</p>
+      <p>{name?.first} {name?.last}</p>
       <p>{expireMonth}</p>
       <p>{expireYear}</p>
       <p>{ccv}</p>
