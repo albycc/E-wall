@@ -6,7 +6,7 @@ import { initCard, changeActiveCard } from "../../../store/cardsSlice";
 import Card from "../../Card/Card";
 
 export default function CardsPage() {
-  const { availableCardsList, activeCard } = useSelector(
+  const { availableCardsList, activeCard, user } = useSelector(
     (state) => state.cards
   );
   const dispatch = useDispatch();
@@ -33,7 +33,7 @@ export default function CardsPage() {
         <h2>card list</h2>
         {availableCardsList.map((card) => (
           <div key={card.cardNumber} onClick={onCardClick} data-card-number={card.cardNumber}>
-            <Card {...card}/>
+            <Card {...card} cardHolder={user}/>
 
           </div>
         ))}

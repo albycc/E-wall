@@ -1,0 +1,23 @@
+
+.form-frame{
+    border-radius: 10px;
+    background-color: lightblue;
+    padding:20px;
+}
+
+.section{
+    margin:20px 0px;
+}
+
+.card-form{
+    .list-inputs{
+        list-style-type: none;
+        .list-item{
+            .input-column{
+                display: flex;
+                flex-direction: column;
+
+            }
+        }
+    }
+}
