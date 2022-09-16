@@ -10,7 +10,6 @@ import AddCardPage from "./components/pages/AddCard/addcardpage";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <React.StrictMode>
     <BrowserRouter>
       <Provider store={store}>
         <Routes>
@@ -21,5 +20,4 @@ root.render(
         </Routes>
       </Provider>
     </BrowserRouter>
-  </React.StrictMode>
 );
