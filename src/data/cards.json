@@ -1,0 +1,25 @@
+{
+    "cards":[
+        {
+            "vendor": "American Express",
+            "cardNumber": "6666-6666-6666-6666",
+            "expireMonth": "12",
+            "expireYear": "26",
+            "ccv": "012"
+          },
+          {
+            "vendor": "Visa",
+            "cardNumber": "9999-9999-9999-9999",
+            "expireMonth": "12",
+            "expireYear": "26",
+            "ccv": "123"
+          },
+          {
+            "vendor": "MaserCard",
+            "cardNumber": "8888-8888-8888-8888",
+            "expireMonth": "12",
+            "expireYear": "26",
+            "ccv": "123"
+          }
+    ]
+}

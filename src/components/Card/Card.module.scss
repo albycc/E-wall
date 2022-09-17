@@ -1,8 +1,9 @@
+@import "../../styles/variables.scss";
 
 .card-container{
 
-    width:3.37in;
-    height:2.125in;
+    width:$width;
+    height:$height;
     background-color: orange;
     border-radius: 13px;
     pointer-events: none;

@@ -1,12 +1,12 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
+import cardData from "../data/cards.json";
+
 export const getUserThunk = createAsyncThunk("cards/getUser", async () => {
   const response = await axios("https://randomuser.me/api/");
-  console.log(response);
-  if(response.status === 200){
-    return response.data.results[0]
-    
+  if (response.status === 200) {
+    return response.data.results[0];
   }
 });
 
@@ -14,29 +14,7 @@ export const cardsSlice = createSlice({
   name: "cards",
   initialState: {
     user: null,
-    availableCardsList: [
-      {
-        vendor: "American Express",
-        cardNumber: "6666-6666-6666-6666",
-        expireMonth: "12",
-        expireYear: "26",
-        ccv: "012",
-      },
-      {
-        vendor: "Visa",
-        cardNumber: "9999-9999-9999-9999",
-        expireMonth: "12",
-        expireYear: "26",
-        ccv: "123",
-      },
-      {
-        vendor: "MaserCard",
-        cardNumber: "8888-8888-8888-8888",
-        expireMonth: "12",
-        expireYear: "26",
-        ccv: "123",
-      },
-    ],
+    availableCardsList: [],
     activeCard: null,
   },
   reducers: {
@@ -54,14 +32,12 @@ export const cardsSlice = createSlice({
       state.availableCardsList = [...state.availableCardsList, payload];
     },
     deleteCard: (state, { payload }) => {
+      console.log(payload)
       state.availableCardsList = state.availableCardsList.filter(
-        (card) => card.cardNumber !== payload.cardNumber
+        (card) => card.cardNumber !== payload
       );
     },
     changeActiveCard: (state, { payload }) => {
-      console.log(
-        state.availableCardsList.find((card) => card.cardNumber === payload)
-      );
       const cardTemp = state.activeCard;
       state.activeCard = state.availableCardsList.find(
         (card) => card.cardNumber === payload
@@ -72,13 +48,16 @@ export const cardsSlice = createSlice({
       );
     },
   },
-  extraReducers:{
-    [getUserThunk.fulfilled]:(state, {payload}) => {
-      console.log(payload);
-      state.user = payload
-
-    }
-  }
+  extraReducers: {
+    [getUserThunk.fulfilled]: (state, { payload }) => {
+      if (state.user === null) {
+        state.user = payload;
+        const {cards} = JSON.parse(JSON.stringify(cardData));
+        state.availableCardsList = cards
+        state.activeCard = state.availableCardsList.shift();
+      }
+    },
+  },
 });
 
 export const { initCard, addCard, deleteCard, changeActiveCard } =

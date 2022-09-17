@@ -1,9 +1,14 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { initCard, changeActiveCard, getUserThunk } from "../../../store/cardsSlice";
+import { getUserThunk } from "../../../store/cardsSlice";
 
+//styles
+import styles from "./cardspage.module.scss";
+
+//components
 import Card from "../../Card/Card";
+import CardsPlaceHolder from "./Cardplaceholder";
 
 export default function CardsPage() {
   const { availableCardsList, activeCard, user } = useSelector(
@@ -12,14 +17,13 @@ export default function CardsPage() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getUserThunk())
-    dispatch(initCard());
+    console.log("dispatch getUserThunk")
+    dispatch(getUserThunk());
   }, [dispatch]);
 
-  const onCardClick = (event) => {
-    const cardNumber = event.target.dataset.cardNumber
-    dispatch(changeActiveCard(cardNumber))
-  }
+  const name = user?.name;
+
+  console.log(availableCardsList)
 
   return (
     <div>
@@ -28,15 +32,14 @@ export default function CardsPage() {
       </div>
       <div>
         <h2>Active card</h2>
-        {activeCard && <Card {...activeCard} cardHolder={user}/>}
+        {activeCard && <Card {...activeCard} cardHolderName={name} />}
       </div>
       <div>
         <h2>card list</h2>
         {availableCardsList.map((card) => (
-          <div key={card.cardNumber} onClick={onCardClick} data-card-number={card.cardNumber}>
-            <Card {...card} cardHolder={user}/>
-
-          </div>
+          <CardsPlaceHolder key={card.cardNumber} cardNumber={card.cardNumber}>
+            <Card {...card} cardHolderName={name} />
+          </CardsPlaceHolder>
         ))}
       </div>
       <div>
