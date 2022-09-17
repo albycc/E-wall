@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { changeActiveCard, getUserThunk } from "../../../store/cardsSlice";
+import { getUserThunk } from "../../../store/cardsSlice";
 
 //styles
 import styles from "./cardspage.module.scss";
@@ -9,7 +9,6 @@ import styles from "./cardspage.module.scss";
 //components
 import Card from "../../Card/Card";
 import CardsPlaceHolder from "./Cardplaceholder";
-import Cardsmenu from "./Cardsmenu";
 
 export default function CardsPage() {
   const { availableCardsList, activeCard, user } = useSelector(
