@@ -1,0 +1,16 @@
+.menu-container {
+  position: absolute;
+  background-color: red;
+  transform-origin: center;
+  transform: translate(-50%, 0%);
+
+  & .circle-button {
+    border: none;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    cursor: pointer;
+    background-color: lightblue;
+    margin: 10px;
+  }
+}

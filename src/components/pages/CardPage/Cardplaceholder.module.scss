@@ -1,0 +1,8 @@
+@import "../../../styles/variables.scss";
+
+.card-placeholder{
+    width:$width;
+    height:$height;
+    background-color: red;
+    cursor:pointer;
+}
