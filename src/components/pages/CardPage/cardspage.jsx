@@ -1,7 +1,6 @@
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { getUserThunk } from "../../../store/cardsSlice";
+
 
 //styles
 import styles from "./cardspage.module.scss";
@@ -14,12 +13,7 @@ export default function CardsPage() {
   const { availableCardsList, activeCard, user } = useSelector(
     (state) => state.cards
   );
-  const dispatch = useDispatch();
 
-  useEffect(() => {
-    console.log("dispatch getUserThunk")
-    dispatch(getUserThunk());
-  }, [dispatch]);
 
   const name = user?.name;
 
