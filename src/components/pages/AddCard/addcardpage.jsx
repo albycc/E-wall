@@ -51,11 +51,15 @@ export default function AddCardPage() {
     );
 
     if (inputsAreNotFilled) {
-      dispatchMessage({type:"setMessage", message:"Please fill out the required fields."})
+      dispatchMessage({type:"setMessage", message:"Please fill out the required fields."});
+      setTimeout(() => dispatchMessage({type:"setVisible", visibleValue:false}), 3000);
       return;
     }
 
     dispatch(addCard(cardObject));
+    dispatchMessage({type:"setMessage", message:"Added new card."})
+    setTimeout(() => dispatchMessage({type:"setVisible", visibleValue:false}), 3000);
+
   };
 
   const inputChangeHandler = (event) => {
