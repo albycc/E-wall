@@ -6,5 +6,4 @@ export function splitEveryNthChar(text, number){
     }
 
     return splitString.join(" ");
-
 }

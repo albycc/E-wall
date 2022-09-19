@@ -3,7 +3,7 @@ import Card from "../../Card/Card";
 import styles from "./addcardpage.module.scss";
 import { addCard } from "../../../store/cardsSlice";
 import { Link } from "react-router-dom";
-import { useEffect, useReducer, useState } from "react";
+import { useEffect, useReducer, useRef, useState } from "react";
 import { splitEveryNthChar } from "../../../utilities/helperFunctions";
 
 const messageReducer = (state, action) => {
@@ -24,19 +24,24 @@ export default function AddCardPage() {
     visible: false,
     messageText: "",
   });
+  const vendorDropdown = useRef()
 
   useEffect(() => {
     const inputs = Array.from(document.querySelectorAll("input"));
     const selectVendor = document.querySelector("select");
-    let props = { [selectVendor.name]: selectVendor.value };
+    const inputColour = document.querySelector("input#colour");
+    let props = {};
     inputs.forEach((input) => (props[input.name] = ""));
+    props[selectVendor.name] = selectVendor.value;
+    props[inputColour.name] = inputColour.value;
+    console.log(props)
     setCardProps(props);
   }, []);
 
   const onFormSubmit = (event) => {
     event.preventDefault();
 
-    const inputs = Array.from(event.target.querySelectorAll("input"));
+    const inputs = Array.from(event.target.querySelectorAll("input[maxLength]"));
 
     const formData = new FormData(event.target);
 
@@ -88,8 +93,6 @@ export default function AddCardPage() {
     });
   };
 
-  console.log(messageState);
-
   return (
     <div>
       {messageState.visible  && <div><p>{messageState.messageText}</p></div>}
@@ -106,7 +109,7 @@ export default function AddCardPage() {
               <li className={styles["list-item"]}>
                 <div className={styles["input-column"]}>
                   <label htmlFor="vendor">Vendor</label>
-                  <select name="vendor" onChange={inputChangeHandler}>
+                  <select name="vendor" onChange={inputChangeHandler} ref={vendorDropdown}>
                     <option value="American Express">American Express</option>
                     <option value="Visa">Visa</option>
                     <option value="MasterCard">MasterCard</option>
@@ -124,6 +127,18 @@ export default function AddCardPage() {
                     onChange={inputCardChangeHandler}
                     placeholder="xxxx xxxx xxxx xxxx"
                     data-max="16"
+                  />
+                </div>
+              </li>
+              <li className={styles["list-item"]}>
+                <div className={styles["input-column"]}>
+                  <label htmlFor="bank">Card Number</label>
+                  <input
+                    type="text"
+                    name="bank"
+                    id="bank"
+                    onChange={inputChangeHandler}
+                    placeholder="Bankname"
                   />
                 </div>
               </li>
@@ -166,6 +181,18 @@ export default function AddCardPage() {
                     onChange={inputChangeHandler}
                     placeholder="xxx"
                     data-max="3"
+                  />
+                </div>
+              </li>
+              <li className={styles["list-item"]}>
+                <div className={styles["input-column"]}>
+                  <label htmlFor="colour">Colour</label>
+                  <input
+                    type="color"
+                    name="colour"
+                    id="colour"
+                    defaultValue="#1f80ff"
+                    onChange={inputChangeHandler}
                   />
                 </div>
               </li>

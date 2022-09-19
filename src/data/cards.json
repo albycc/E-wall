@@ -2,24 +2,30 @@
     "cards":[
         {
             "vendor": "American Express",
+            "bank":"Bank of America",
             "cardNumber": "6666666666666666",
             "expireMonth": "12",
             "expireYear": "26",
-            "ccv": "012"
+            "ccv": "012",
+            "colour":"#FFD700"
           },
           {
             "vendor": "Visa",
+            "bank":"Bank of England",
             "cardNumber": "9999999999999999",
             "expireMonth": "12",
             "expireYear": "26",
-            "ccv": "123"
+            "ccv": "123",
+            "colour":"#347deb"
           },
           {
-            "vendor": "MaserCard",
+            "vendor": "MasterCard",
+            "bank":"Tesco bank",
             "cardNumber": "8888888888888888",
             "expireMonth": "12",
             "expireYear": "26",
-            "ccv": "123"
+            "ccv": "123",
+            "colour":"#ff9626"
           }
     ]
 }
