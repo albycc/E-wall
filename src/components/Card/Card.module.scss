@@ -18,7 +18,7 @@
     padding:15px 20px;
     pointer-events: none;
     box-sizing: border-box;
-    box-shadow: 2px 2px rgba(255, 255, 255, 0.2);
+    box-shadow: 2px 2px rgba(58, 58, 58, 0.3);
 }
 
 .bank-title{
@@ -68,7 +68,7 @@
 .silver-text{
     font-family:creditCardNumber;
     font-weight: 100;
-    background: linear-gradient(rgb(199, 199, 199) 11%, rgb(168, 168, 168) 30%, rgb(168, 168, 168) );
+    background: linear-gradient(rgb(199, 199, 199) 6%, rgb(189, 189, 189) 50%, rgb(226, 226, 226));
     background-clip: text;
     -webkit-text-fill-color: transparent;
     color:rgb(202, 202, 202);

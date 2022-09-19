@@ -94,10 +94,10 @@ export default function AddCardPage() {
   };
 
   return (
-    <div>
+    <div className="center-content">
       {messageState.visible  && <div><p>{messageState.messageText}</p></div>}
       <div className={styles["section"]}>
-        <h2>Add Card</h2>
+        <h1>Add Card</h1>
       </div>
       <div className={styles["section"]}>
         <Card cardHolderName={user?.name} {...cardProps} />
