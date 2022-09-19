@@ -6,7 +6,6 @@ import styles from "./cardspage.module.scss";
 
 //components
 import Card from "../../Card/Card";
-import CardsPlaceHolder from "./Cardplaceholder";
 import PlusButton from "../../UI/Plusbutton/Plusbutton";
 
 export default function CardsPage() {
@@ -30,12 +29,8 @@ export default function CardsPage() {
         <ul className={styles["cards-list"]}>
         {availableCardsList.map((card) => (
             <li key={card.cardNumber}>
+              <Card {...card} cardHolderName={name} menuButtonOptions={{deleteOption:true, activeOption:true}} />
 
-              <CardsPlaceHolder
-                cardNumber={card.cardNumber}
-              >
-                <Card {...card} cardHolderName={name} />
-              </CardsPlaceHolder>
             </li>
         ))}
         </ul>

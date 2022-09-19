@@ -2,7 +2,7 @@ import { Fragment, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Outlet } from "react-router-dom";
 import { getUserThunk } from "./store/cardsSlice";
-import styles from "./App.scss"
+import "./App.scss"
 
 function App() {
   console.log("app")

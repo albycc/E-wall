@@ -6,8 +6,9 @@
 }
 
 .main-content{
-    background-color: rgb(221, 255, 242);
-    height:100vh;
+    background-color: #22223e;
+    height:100%;
+    min-height: 100vh;
 }
 
 .center-content{
@@ -24,5 +25,6 @@
 }
 
 h1{
+    color:white;
     font-family: 'Hind', Arial, sans-serif;
 }
