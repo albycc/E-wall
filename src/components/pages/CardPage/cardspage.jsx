@@ -7,7 +7,7 @@ import styles from "./cardspage.module.scss";
 //components
 import Card from "../../Card/Card";
 import CardsPlaceHolder from "./Cardplaceholder";
-import PlusButton from "../../UI/Plusbutton";
+import PlusButton from "../../UI/Plusbutton/Plusbutton";
 
 export default function CardsPage() {
   const { availableCardsList, activeCard, user } = useSelector(
@@ -20,13 +20,13 @@ export default function CardsPage() {
 
   return (
     <div className="center-content">
-      <div>
+      <div className="page-section">
         <h1>Cards</h1>
       </div>
-      <div>
+      <div className="page-section">
         {activeCard && <Card {...activeCard} cardHolderName={name} />}
       </div>
-      <div>
+      <div className="page-section">
         <ul className={styles["cards-list"]}>
         {availableCardsList.map((card) => (
             <li key={card.cardNumber}>
@@ -40,7 +40,7 @@ export default function CardsPage() {
         ))}
         </ul>
       </div>
-      <div>
+      <div className="page-section">
         <Link to="/addcard">
           <PlusButton />
         </Link>

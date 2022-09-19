@@ -5,15 +5,17 @@ import { addCard } from "../../../store/cardsSlice";
 import { Link } from "react-router-dom";
 import { useEffect, useReducer, useRef, useState } from "react";
 import { splitEveryNthChar } from "../../../utilities/helperFunctions";
+import Button from "../../UI/Button/Button";
+import MessageBox from "./MessageBox";
 
 const messageReducer = (state, action) => {
   if (action.type === "setVisible") {
     return { ...state, visible: action.visibleValue };
   }
   if (action.type === "setMessage") {
-    return { visible:true, messageText: action.message };
+    return { visible: true, messageText: action.message, messageType:action.messageType };
   }
-  return { visible: false, messageText: "" };
+  return { visible: false, messageText: "", messageType:"" };
 };
 
 export default function AddCardPage() {
@@ -23,8 +25,9 @@ export default function AddCardPage() {
   const [messageState, dispatchMessage] = useReducer(messageReducer, {
     visible: false,
     messageText: "",
+    messageType:null
   });
-  const vendorDropdown = useRef()
+  const vendorDropdown = useRef();
 
   useEffect(() => {
     const inputs = Array.from(document.querySelectorAll("input"));
@@ -34,14 +37,16 @@ export default function AddCardPage() {
     inputs.forEach((input) => (props[input.name] = ""));
     props[selectVendor.name] = selectVendor.value;
     props[inputColour.name] = inputColour.value;
-    console.log(props)
+    console.log(props);
     setCardProps(props);
   }, []);
 
   const onFormSubmit = (event) => {
     event.preventDefault();
 
-    const inputs = Array.from(event.target.querySelectorAll("input[maxLength]"));
+    const inputs = Array.from(
+      event.target.querySelectorAll("input[maxLength]")
+    );
 
     const formData = new FormData(event.target);
 
@@ -56,15 +61,12 @@ export default function AddCardPage() {
     );
 
     if (inputsAreNotFilled) {
-      dispatchMessage({type:"setMessage", message:"Please fill out the required fields."});
-      setTimeout(() => dispatchMessage({type:"setVisible", visibleValue:false}), 3000);
+      setMessage("Please fill out the required fields.", "error")
       return;
     }
 
     dispatch(addCard(cardObject));
-    dispatchMessage({type:"setMessage", message:"Added new card."})
-    setTimeout(() => dispatchMessage({type:"setVisible", visibleValue:false}), 3000);
-
+    setMessage("Succesfully added new card.", "success")
   };
 
   const inputChangeHandler = (event) => {
@@ -93,23 +95,41 @@ export default function AddCardPage() {
     });
   };
 
+  const setMessage = (text, type) => {
+    dispatchMessage({
+      type: "setMessage",
+      message: text,
+      messageType:type
+    });
+    setTimeout(
+      () => dispatchMessage({ type: "setVisible", visibleValue: false }),
+      3000
+    );
+  }
+
   return (
     <div className="center-content">
-      {messageState.visible  && <div><p>{messageState.messageText}</p></div>}
-      <div className={styles["section"]}>
+      {messageState.visible && (
+       <MessageBox textMessage={messageState.messageText} messageType={messageState.messageType}/>
+      )}
+      <div className="page-section">
         <h1>Add Card</h1>
       </div>
-      <div className={styles["section"]}>
+      <div className="page-section">
         <Card cardHolderName={user?.name} {...cardProps} />
       </div>
-      <div className={styles["section"]}>
+      <div className="page-section">
         <div className={styles["form-frame"]}>
           <form className={styles["card-form"]} onSubmit={onFormSubmit}>
             <ul className={styles["list-inputs"]}>
               <li className={styles["list-item"]}>
                 <div className={styles["input-column"]}>
                   <label htmlFor="vendor">Vendor</label>
-                  <select name="vendor" onChange={inputChangeHandler} ref={vendorDropdown}>
+                  <select
+                    name="vendor"
+                    onChange={inputChangeHandler}
+                    ref={vendorDropdown}
+                  >
                     <option value="American Express">American Express</option>
                     <option value="Visa">Visa</option>
                     <option value="MasterCard">MasterCard</option>
@@ -127,51 +147,52 @@ export default function AddCardPage() {
                     onChange={inputCardChangeHandler}
                     placeholder="xxxx xxxx xxxx xxxx"
                     data-max="16"
+                    className={styles["width-long"]}
                   />
                 </div>
               </li>
               <li className={styles["list-item"]}>
                 <div className={styles["input-column"]}>
-                  <label htmlFor="bank">Card Number</label>
+                  <label htmlFor="bank">Bank name</label>
                   <input
                     type="text"
                     name="bank"
                     id="bank"
                     onChange={inputChangeHandler}
                     placeholder="Bankname"
+                    className={styles["width-long"]}
                   />
                 </div>
               </li>
               <li className={styles["list-item"]}>
-                <div className={styles["input-column"]}>
-                  <label htmlFor="expireMonth">Expire Month</label>
-                  <input
-                    type="text"
-                    name="expireMonth"
-                    id="expireMonth"
-                    maxLength="2"
-                    onChange={inputMonthChangeHandler}
-                    placeholder="xx"
-                    data-max="2"
-                  />
-                </div>
-              </li>
-              <li className={styles["list-item"]}>
-                <div className={styles["input-column"]}>
-                  <label htmlFor="expireYear">Expire Year</label>
-                  <input
-                    type="text"
-                    name="expireYear"
-                    id="expireYear"
-                    maxLength="2"
-                    onChange={inputChangeHandler}
-                    placeholder="xx"
-                    data-max="2"
-                  />
-                </div>
-              </li>
-              <li className={styles["list-item"]}>
-                <div className={styles["input-column"]}>
+                <div className={styles["input-row"]}>
+                  <div className={styles["input-column"]}>
+                    <label htmlFor="expireMonth">Month</label>
+                    <input
+                      type="text"
+                      name="expireMonth"
+                      id="expireMonth"
+                      maxLength="2"
+                      onChange={inputMonthChangeHandler}
+                      placeholder="xx"
+                      data-max="2"
+                      className={styles["width-short"]}
+                    />
+                  </div>
+                  <div className={styles["input-column"]}>
+                    <label htmlFor="expireYear">Year</label>
+                    <input
+                      type="text"
+                      name="expireYear"
+                      id="expireYear"
+                      maxLength="2"
+                      onChange={inputChangeHandler}
+                      placeholder="xx"
+                      data-max="2"
+                      className={styles["width-short"]}
+                    />
+                  </div>
+                  <div className={styles["input-column"]}>
                   <label htmlFor="ccv">CCV</label>
                   <input
                     type="text"
@@ -181,7 +202,9 @@ export default function AddCardPage() {
                     onChange={inputChangeHandler}
                     placeholder="xxx"
                     data-max="3"
+                    className={styles["width-short"]}
                   />
+                </div>
                 </div>
               </li>
               <li className={styles["list-item"]}>
@@ -193,21 +216,22 @@ export default function AddCardPage() {
                     id="colour"
                     defaultValue="#1f80ff"
                     onChange={inputChangeHandler}
+                    className={styles["width-short"]}
                   />
                 </div>
               </li>
               <li className={styles["list-item"]}>
                 <div className={styles["input-column"]}>
-                  <button>Add Card</button>
+                  <Button text="Add Card" />
                 </div>
               </li>
             </ul>
           </form>
         </div>
       </div>
-      <div className={styles["section"]}>
+      <div className="page-section">
         <Link to="/cards">
-          <button>back</button>
+        <Button text="Back" />
         </Link>
       </div>
     </div>

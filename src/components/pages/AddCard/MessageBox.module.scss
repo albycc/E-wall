@@ -1,0 +1,40 @@
+.message-box{
+    display: flex;
+    position: absolute;
+    justify-content: center;
+    align-items: center;
+    height:70px;
+    width:100%;
+    font-size: 1.2em;
+    font-family: Arial, Helvetica, sans-serif;
+    max-width:300px;
+    margin:5px;
+    animation-name: frames;
+    animation-duration: 0.3s;
+    animation-fill-mode: forwards;
+    animation-timing-function: ease-out;
+    color:white;
+
+    &.error{
+        background-color: lightcoral;
+    }
+
+    &.success{
+        background-color: lightblue;
+    }
+
+    @keyframes frames{
+        0%{
+            top:-100px;
+        }
+
+        20%{
+            top:-10px;
+        }
+
+        100%{
+            top:0px;
+        }
+
+    }
+}
