@@ -1,0 +1,18 @@
+@import "../../../styles/variables.scss";
+
+.button{
+    border:none;
+    border-radius: 10px;
+    padding:8px;
+    font-size: 1.3em;
+    align-self: center;
+    background-color: $buttonColour;
+    color:white;
+    cursor:pointer;
+    &:hover{
+        background-color: $buttonHoverColour;
+    }
+    &:active{
+        background-color: $buttonActiveColour;
+    }
+}

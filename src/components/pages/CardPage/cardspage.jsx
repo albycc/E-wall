@@ -1,44 +1,43 @@
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
-
 //styles
 import styles from "./cardspage.module.scss";
 
 //components
 import Card from "../../Card/Card";
-import CardsPlaceHolder from "./Cardplaceholder";
+import PlusButton from "../../UI/Plusbutton/Plusbutton";
 
 export default function CardsPage() {
   const { availableCardsList, activeCard, user } = useSelector(
     (state) => state.cards
   );
 
-
   const name = user?.name;
 
-  console.log(availableCardsList)
+  console.log(availableCardsList);
 
   return (
-    <div>
-      <div>
+    <div className="center-content">
+      <div className="page-section">
         <h1>Cards</h1>
       </div>
-      <div>
-        <h2>Active card</h2>
+      <div className="page-section">
         {activeCard && <Card {...activeCard} cardHolderName={name} />}
       </div>
-      <div>
-        <h2>card list</h2>
+      <div className="page-section">
+        <ul className={styles["cards-list"]}>
         {availableCardsList.map((card) => (
-          <CardsPlaceHolder key={card.cardNumber} cardNumber={card.cardNumber}>
-            <Card {...card} cardHolderName={name} />
-          </CardsPlaceHolder>
+            <li key={card.cardNumber}>
+              <Card {...card} cardHolderName={name} menuButtonOptions={{deleteOption:true, activeOption:true}} />
+
+            </li>
         ))}
+        </ul>
       </div>
-      <div>
+      <div className="page-section">
         <Link to="/addcard">
-          <button>+</button>
+          <PlusButton />
         </Link>
       </div>
     </div>

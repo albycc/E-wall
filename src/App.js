@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { Fragment, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Outlet } from "react-router-dom";
 import { getUserThunk } from "./store/cardsSlice";
@@ -14,9 +14,12 @@ function App() {
     dispatch(getUserThunk());
   });
   return (
-      <main>
+    <Fragment>
+      <main className={"main-content"}>
         <Outlet />
       </main>
+
+    </Fragment>
   );
 }
 
