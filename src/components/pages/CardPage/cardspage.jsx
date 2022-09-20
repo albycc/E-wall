@@ -1,5 +1,6 @@
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import MessageBox from "../../MessageBox/MessageBox";
 
 //styles
 import styles from "./cardspage.module.scss";
@@ -15,11 +16,10 @@ export default function CardsPage() {
 
   const name = user?.name;
 
-  console.log(availableCardsList);
-
   return (
     <div className="center-content">
-      <div className="page-section">
+      <MessageBox/>
+      <div className="header-section">
         <h1>Cards</h1>
       </div>
       <div className="page-section">

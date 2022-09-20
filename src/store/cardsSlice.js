@@ -28,11 +28,9 @@ export const cardsSlice = createSlice({
         alert("Error. Reached max 4 cards.");
         return;
       }
-      console.log(payload);
       state.availableCardsList = [...state.availableCardsList, payload];
     },
     deleteCard: (state, { payload }) => {
-      console.log(payload)
       state.availableCardsList = state.availableCardsList.filter(
         (card) => card.cardNumber !== payload
       );

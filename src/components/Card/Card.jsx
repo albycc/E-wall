@@ -13,12 +13,10 @@ export default function Card({
   expireYear,
   ccv,
   colour,
-  menuButtonOptions
+  menuButtonOptions = {}
 }) {
   const [front, setFront] = useState(true);
   const [menuVisible, setMenuVisible] = useState(false);
-
-  console.log(menuButtonOptions)
 
   const onCardClickHandler = () => {
     setMenuVisible((prev) => !prev);
@@ -50,6 +48,11 @@ export default function Card({
               src={require("../../img/creditchip.png")}
               alt="card chip"
               className={styles["chip-icon"]}
+            ></img>
+            <img
+              src={require("../../img/paywave.png")}
+              alt="paywave icon"
+              className={styles["chip-paywave"]}
             ></img>
           </div>
           <div

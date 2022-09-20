@@ -70,6 +70,11 @@
     border-radius: 5px;
 }
 
+.chip-paywave{
+    height: 30px;
+    margin-left:10px;
+}
+
 .creditcard-numberformat{
     font-size: 1.2em;
     white-space: nowrap;
@@ -82,11 +87,11 @@
 .silver-text{
     font-family:creditCardNumber;
     font-weight: 100;
-    background: linear-gradient(rgb(199, 199, 199) 6%, rgb(189, 189, 189) 50%, rgb(226, 226, 226));
+    background: linear-gradient(rgb(255, 255, 255) 15%, rgb(226, 226, 226) 60%, rgb(248, 248, 248), rgb(241, 241, 241) 50%);
     background-clip: text;
     -webkit-text-fill-color: transparent;
     color:rgb(202, 202, 202);
-    // text-shadow: 1px 1px 2px black;
+    text-shadow: 2px 2px 1px rgba(31, 31, 31, 0.2);
     & .slash{
         font-weight: bold;
         font-size: 1.7em;
@@ -98,21 +103,27 @@
     height:35px;
 }
 
+
+//cards menu
 .card-menu{
     position: absolute;
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
+    z-index:2;
     & button{
         border:none;
         color:white;
         background-color: $buttonColour;
+        border-radius: 8px;
         padding:4px;
         font-size: 1em;
         cursor: pointer;
         & + button{
-            margin-left:10px;
-
+            margin-left:8px;
+        }
+        img{
+            height:30px;
         }
         &:hover{
             background-color: $buttonHoverColour;
@@ -127,6 +138,8 @@
 //backwards
 
 .magnetic-strip{
+    position: absolute;
+    left:0px;
     height:50px;
     width:100%;
     background-color: black;
