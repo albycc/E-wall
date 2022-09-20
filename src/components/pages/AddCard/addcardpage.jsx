@@ -2,44 +2,22 @@ import { useDispatch, useSelector } from "react-redux";
 import Card from "../../Card/Card";
 import styles from "./addcardpage.module.scss";
 import { addCard } from "../../../store/cardsSlice";
+import { setMessage, hideMessage } from "../../../store/messageSlice";
 import { Link } from "react-router-dom";
-import { useEffect, useReducer, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { splitEveryNthChar } from "../../../utilities/helperFunctions";
 import Button from "../../UI/Button/Button";
-import MessageBox from "./MessageBox";
+import MessageBox from "../../MessageBox/MessageBox";
 
-const messageReducer = (state, action) => {
-  if (action.type === "setVisible") {
-    return { ...state, visible: action.visibleValue };
-  }
-  if (action.type === "setMessage") {
-    return {
-      visible: true,
-      messageText: action.message,
-      messageType: action.messageType,
-    };
-  }
-  return { visible: false, messageText: "", messageType: "" };
-};
+
 
 export default function AddCardPage() {
   const dispatch = useDispatch();
-  const { user } = useSelector((state) => state.cards);
+  const { user, availableCardsList } = useSelector((state) => state.cards);
   const [cardProps, setCardProps] = useState({});
-  const [messageState, dispatchMessage] = useReducer(messageReducer, {
-    visible: false,
-    messageText: "",
-    messageType: null,
-  });
-  const vendorDropdown = useRef();
 
   useEffect(() => {
-    const inputs = Array.from(document.querySelectorAll("input, select"));
-    console.log(inputs);
-    let props = {};
-    inputs.forEach((input) => (props[input.name] = input.value));
-    console.log(props);
-    setCardProps(props);
+    resetCardValues()
   }, []);
 
   const onFormSubmit = (event) => {
@@ -49,20 +27,35 @@ export default function AddCardPage() {
       event.target.querySelectorAll("input[maxLength]")
     );
 
-    console.log(cardProps)
-
     const inputsAreNotFilled = inputs.some(
       (input) => cardProps[input.name].length < input.dataset.max
     );
 
     if (inputsAreNotFilled) {
-      setMessage("Please fill out the required fields.", "error");
+      dispatch(setMessage({messageText:"Please fill out the required fields.", messageType:"error"}));
+      setTimeout(() => dispatch(hideMessage()), 3000)
+      return;
+    }
+
+    if(availableCardsList.length >= 3){
+      dispatch(setMessage({messageText:"Unable to add card. User has reached max 4 card limit.", messageType:"error"}));
+      setTimeout(() => dispatch(hideMessage()), 3000)
       return;
     }
 
     dispatch(addCard(cardProps));
-    setMessage("Succesfully added new card.", "success");
+    dispatch(setMessage({messageText:"Successfully added new card.", messageType:"success"}));
+    setTimeout(() => dispatch(hideMessage()), 3000)
+    event.target.reset()
+    resetCardValues();
   };
+
+  const resetCardValues = () => {
+    const inputs = Array.from(document.querySelectorAll("input, select"));
+    let props = {};
+    inputs.forEach((input) => (props[input.name] = input.value));
+    setCardProps(props);
+  }
 
   const inputChangeHandler = (event) => {
     const propName = event.target.name;
@@ -90,9 +83,7 @@ export default function AddCardPage() {
   const numberValidate = (value, input) => {
     let regex = /[a-öA-Ö]/g;
     if(regex.test(value)){
-      console.log("contains letters");
       value = value.slice(0, value.length-1);
-      console.log("propValue:", value)
       input.value = value;
     }
     return value;
@@ -104,27 +95,10 @@ export default function AddCardPage() {
     });
   };
 
-  const setMessage = (text, type) => {
-    dispatchMessage({
-      type: "setMessage",
-      message: text,
-      messageType: type,
-    });
-    setTimeout(
-      () => dispatchMessage({ type: "setVisible", visibleValue: false }),
-      3000
-    );
-  };
 
-  console.log(cardProps);
   return (
     <div className="center-content">
-      {messageState.visible && (
-        <MessageBox
-          textMessage={messageState.messageText}
-          messageType={messageState.messageType}
-        />
-      )}
+      <MessageBox/>
       <div className="header-section">
         <h1>Add Card</h1>
       </div>
@@ -141,7 +115,6 @@ export default function AddCardPage() {
                   <select
                     name="vendor"
                     onChange={inputChangeHandler}
-                    ref={vendorDropdown}
                     className={`${styles["width-long"]} ${styles["input-field"]}`}
                   >
                     <option value="American Express">American Express</option>

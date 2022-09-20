@@ -14,7 +14,11 @@
     animation-fill-mode: forwards;
     animation-timing-function: ease-out;
     color:white;
+    text-align: center;
 
+    &.default{
+        background-color: rgb(243, 188, 69);
+    }
     &.error{
         background-color: rgb(243, 69, 69);
     }
