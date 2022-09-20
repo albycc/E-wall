@@ -24,6 +24,12 @@
     margin:20px 0px;
 }
 
+.header-section{
+    display: flex;
+    flex-direction: column-reverse;
+    height:150px;
+}
+
 h1{
     color:white;
     font-family: 'Hind', Arial, sans-serif;

@@ -16,11 +16,11 @@
     color:white;
 
     &.error{
-        background-color: lightcoral;
+        background-color: rgb(243, 69, 69);
     }
 
     &.success{
-        background-color: lightblue;
+        background-color: rgb(96, 197, 231);
     }
 
     @keyframes frames{

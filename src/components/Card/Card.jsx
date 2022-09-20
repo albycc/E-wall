@@ -13,7 +13,7 @@ export default function Card({
   expireYear,
   ccv,
   colour,
-  menuButtonOptions
+  menuButtonOptions = {}
 }) {
   const [front, setFront] = useState(true);
   const [menuVisible, setMenuVisible] = useState(false);

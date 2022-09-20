@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { Provider } from "react-redux";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import App from "./App";
 import store from "./store/configStore";
 
@@ -14,6 +14,7 @@ root.render(
       <Provider store={store}>
         <Routes>
           <Route path="/" element={<App />}>
+            <Route index element={<Navigate replace to="cards" />} />
             <Route path="cards" element={<CardsPage />} />
             <Route path="addcard" element={<AddCardPage />} />
           </Route>

@@ -19,7 +19,7 @@ export default function CardsPage() {
 
   return (
     <div className="center-content">
-      <div className="page-section">
+      <div className="header-section">
         <h1>Cards</h1>
       </div>
       <div className="page-section">
